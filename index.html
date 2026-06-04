@@ -26,7 +26,7 @@
         theme: {
           extend: {
             colors: {
-              primary: {
+              primary: {  
                 50: "#f0f9ff",
                 100: "#e0f2fe",
                 200: "#bae6fd",
@@ -106,7 +106,7 @@
         <a
           href="#home"
           class="text-2xl font-bold text-primary-600 dark:text-primary-400"
-          >lhrii_<span class="text-dark-900 dark:text-white"
+          >ssnchrii_ <span class="text-dark-900 dark:text-white"
             >Chris Jericho Sembiring</span
           ></a
         >
@@ -642,91 +642,35 @@
     <section id="projects" class="py-20 bg-gray-100 dark:bg-dark-800">
       <div class="container mx-auto px-6">
         <h2 class="section-title" data-aos="fade-up">
-          <span class="text-gray-500 dark:text-gray-400">03.</span> Featured
-          Projects
+          <span class="text-gray-500 dark:text-gray-400">03.</span> Featured Projects
         </h2>
 
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-          <!-- Project 1 -->
-          <div class="project-card" data-aos="fade-up">
-            <img
-              src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80"
-              alt="MBKM Application"
-              class="w-full h-48 object-cover"
-            />
-            <div class="p-6">
-              <h3 class="text-xl font-bold mb-2">Aplikasi Pengajuan MBKM</h3>
-              <p class="text-gray-600 dark:text-gray-300 mb-4">
-                Sebuah platform lengkap untuk mengelola aplikasi program MBKM,
-                dilengkapi dengan dashboard admin, pelacakan pengajuan, dan
-                fitur pelaporan.
-              </p>
-              <div class="flex flex-wrap gap-2 mb-4">
-                <span class="tech-tag">PHP</span>
-                <span class="tech-tag">html</span>
-                <span class="tech-tag">css</span>
-                <span class="tech-tag">JavaScript</span>
-              </div>
-              <div class="flex space-x-4">
-                <a
-                  href="https://github.com/lchrii/PBL117-PengajuanUsulanMBKM.git"
-                  class="text-primary-600 dark:text-primary-400 hover:underline"
-                >
-                  <i class="fab fa-github mr-1"></i> Code
-                </a>
-                <a
-                  href="#"
-                  class="text-primary-600 dark:text-primary-400 hover:underline"
-                >
-                  <i class="fas fa-external-link-alt mr-1"></i> Live Demo
-                </a>
-              </div>
+        <!-- Projects rendered dynamically from portfolio-data.js -->
+        <div class="projects-container grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <!-- loading placeholder -->
+          <div class="project-card animate-pulse">
+            <div class="w-full h-48 bg-gray-300 dark:bg-dark-600"></div>
+            <div class="p-6 space-y-3">
+              <div class="h-5 bg-gray-300 dark:bg-dark-600 rounded w-3/4"></div>
+              <div class="h-4 bg-gray-300 dark:bg-dark-600 rounded"></div>
+              <div class="h-4 bg-gray-300 dark:bg-dark-600 rounded w-5/6"></div>
             </div>
           </div>
-
-          <!-- Project 2 -->
-          <div class="project-card" data-aos="fade-up" data-aos-delay="100">
-            <img
-              src="https://images.unsplash.com/photo-1499951360447-b19be8fe80f5?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80"
-              alt="E-commerce Platform"
-              class="w-full h-48 object-cover"
-            />
-            <div class="p-6">
-              <h3 class="text-xl font-bold mb-2">Math-room</h3>
-              <p class="text-gray-600 dark:text-gray-300 mb-4">
-                Aplikasi Maths-Room adalah aplikasi flashcard interaktif untuk
-                belajar rumus-rumus matematika dasar dengan cara yang
-                menyenangkan. Aplikasi ini cocok untuk pelajar SMP/SMA yang
-                ingin mempelajari
-              </p>
-              <div class="flex flex-wrap gap-2 mb-4">
-                <span class="tech-tag">html</span>
-                <span class="tech-tag">Tailwind CSS</span>
-                <span class="tech-tag">JavaScript</span>
-              </div>
-              <div class="flex space-x-4">
-                <a
-                  href="https://github.com/lchrii/Maths-room.git"
-                  class="text-primary-600 dark:text-primary-400 hover:underline"
-                >
-                  <i class="fab fa-github mr-1"></i> Code
-                </a>
-                <a
-                  href="#"
-                  class="text-primary-600 dark:text-primary-400 hover:underline"
-                >
-                  <i class="fas fa-external-link-alt mr-1"></i> Live Demo
-                </a>
-              </div>
+          <div class="project-card animate-pulse">
+            <div class="w-full h-48 bg-gray-300 dark:bg-dark-600"></div>
+            <div class="p-6 space-y-3">
+              <div class="h-5 bg-gray-300 dark:bg-dark-600 rounded w-3/4"></div>
+              <div class="h-4 bg-gray-300 dark:bg-dark-600 rounded"></div>
+              <div class="h-4 bg-gray-300 dark:bg-dark-600 rounded w-5/6"></div>
             </div>
           </div>
         </div>
 
         <div class="text-center mt-12" data-aos="fade-up">
-          <a href="#" class="btn-primary inline-flex items-center">
+          <button id="view-all-projects-btn" class="btn-primary inline-flex items-center gap-2">
             <span>View All Projects</span>
-            <i class="fas fa-arrow-right ml-2"></i>
-          </a>
+            <i class="fas fa-arrow-right transition-transform duration-300"></i>
+          </button>
         </div>
       </div>
     </section>
@@ -791,7 +735,7 @@
               <h4 class="font-medium mb-4">Follow Me</h4>
               <div class="flex space-x-4">
                 <a
-                  href="https://github.com/lchrii"
+                  href="https://github.com/ssnhrii"
                   target="_blank"
                   rel="noopener noreferrer"
                   class="social-icon"
@@ -799,7 +743,7 @@
                   <i class="fab fa-github"></i>
                 </a>
                 <a
-                  href="https://www.instagram.com/lhrii_/"
+                  href="https://www.instagram.com/ssnchrii_/"
                   target="_blank"
                   rel="noopener noreferrer"
                   class="social-icon"
@@ -815,7 +759,7 @@
                   <i class="fab fa-linkedin-in"></i>
                 </a>
                 <a
-                  href="https://www.tiktok.com/@lchrii_/"
+                  href="https://www.tiktok.com/@ssnchrii_/"
                   target="_blank"
                   rel="noopener noreferrer"
                   class="social-icon"
@@ -957,80 +901,13 @@
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
 
     <!-- Typed.js -->
-    <script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12"></script>
+    <script src="https://cdn.jsdelivr.net/npm/typed.js@2.1.0/dist/typed.umd.js"></script>
 
-    <!-- Main Script -->
-    <script>
-      // Preloader
-      window.addEventListener("load", function () {
-        const preloader = document.getElementById("preloader");
-        preloader.style.opacity = "0";
-        setTimeout(() => {
-          preloader.style.display = "none";
-        }, 500);
-      });
+    <!-- Portfolio Data -->
+    <script src="assets/js/portfolio-data.js"></script>
+    <script src="assets/js/data-renderer.js"></script>
 
-      // Mobile Menu Toggle
-      const mobileMenuButton = document.getElementById("mobile-menu-button");
-      const mobileMenu = document.getElementById("mobile-menu");
-
-      mobileMenuButton.addEventListener("click", function () {
-        mobileMenu.classList.toggle("hidden");
-      });
-
-      // Theme Toggle
-      const themeToggle = document.getElementById("theme-toggle");
-
-      themeToggle.addEventListener("click", function () {
-        document.documentElement.classList.toggle("dark");
-        localStorage.setItem(
-          "theme",
-          document.documentElement.classList.contains("dark") ? "dark" : "light"
-        );
-      });
-
-      // Check for saved theme preference
-      if (
-        localStorage.getItem("theme") === "dark" ||
-        (!localStorage.getItem("theme") &&
-          window.matchMedia("(prefers-color-scheme: dark)").matches)
-      ) {
-        document.documentElement.classList.add("dark");
-      } else {
-        document.documentElement.classList.remove("dark");
-      }
-
-      // Initialize AOS
-      AOS.init({
-        duration: 800,
-        easing: "ease-in-out",
-        once: true,
-      });
-
-      // Initialize Typed.js
-      const typed = new Typed("#typed", {
-        strings: ["web apps", "web development", "Full Stack development"],
-        typeSpeed: 50,
-        backSpeed: 30,
-        loop: true,
-      });
-
-      // Back to Top Button
-      const backToTopButton = document.getElementById("back-to-top");
-
-      window.addEventListener("scroll", function () {
-        if (window.pageYOffset > 300) {
-          backToTopButton.classList.remove("opacity-0", "invisible");
-          backToTopButton.classList.add("opacity-100", "visible");
-        } else {
-          backToTopButton.classList.remove("opacity-100", "visible");
-          backToTopButton.classList.add("opacity-0", "invisible");
-        }
-      });
-
-      // Set current year
-      document.getElementById("current-year").textContent =
-        new Date().getFullYear();
-    </script>
+    <!-- Optimized Main Script -->
+    <script src="assets/js/optimized-script.js"></script>
   </body>
 </html>
