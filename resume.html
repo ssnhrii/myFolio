@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <!-- Favicon -->
+  <link rel="icon" href="assets/img/icon.png" type="image/x-icon" />
+
+  <title>Resume — Chris Jericho Sembiring</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'Segoe UI', Arial, sans-serif;
+      font-size: 13px;
+      color: #1a202c;
+      background: #f7fafc;
+    }
+
+    .print-bar {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      background: #0ea5e9;
+      color: white;
+      padding: 10px 24px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      z-index: 100;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+    }
+    .print-bar span { font-size: 14px; font-weight: 600; }
+    .print-bar button {
+      background: white;
+      color: #0ea5e9;
+      border: none;
+      padding: 8px 20px;
+      border-radius: 6px;
+      font-weight: 700;
+      font-size: 13px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .print-bar button:hover { background: #e0f2fe; }
+
+    .page {
+      width: 210mm;
+      min-height: 297mm;
+      margin: 52px auto 32px;
+      background: white;
+      box-shadow: 0 4px 24px rgba(0,0,0,0.12);
+      display: flex;
+    }
+
+    /* SIDEBAR */
+    .sidebar {
+      width: 68mm;
+      background: #0f172a;
+      color: #e2e8f0;
+      padding: 28px 18px;
+      flex-shrink: 0;
+    }
+
+    .photo-wrap { text-align: center; margin-bottom: 20px; }
+    .photo-wrap img {
+      width: 90px; height: 90px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 3px solid #0ea5e9;
+    }
+    .photo-wrap h1 { margin-top: 10px; font-size: 15px; font-weight: 700; color: white; line-height: 1.3; }
+    .photo-wrap .role { font-size: 10px; color: #94a3b8; margin-top: 3px; }
+
+    .sb { margin-bottom: 18px; }
+    .sb h3 {
+      font-size: 9px;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      color: #0ea5e9;
+      border-bottom: 1px solid #1e3a5f;
+      padding-bottom: 4px;
+      margin-bottom: 9px;
+    }
+
+    .ci {
+      display: flex; align-items: flex-start;
+      gap: 7px; margin-bottom: 7px;
+      font-size: 10.5px; color: #cbd5e1; word-break: break-all;
+    }
+    .ci i { color: #0ea5e9; width: 11px; flex-shrink: 0; margin-top: 1px; }
+    .ci a { color: #cbd5e1; text-decoration: none; }
+    .ci a:hover { color: #38bdf8; }
+
+    .sk { margin-bottom: 7px; }
+    .sk-name { display: flex; justify-content: space-between; font-size: 10.5px; color: #cbd5e1; margin-bottom: 3px; }
+    .sk-bar { height: 4px; background: #1e293b; border-radius: 2px; overflow: hidden; }
+    .sk-fill { height: 100%; background: linear-gradient(90deg, #0ea5e9, #38bdf8); border-radius: 2px; }
+
+    .lang { display: flex; justify-content: space-between; align-items: center; font-size: 10.5px; color: #cbd5e1; margin-bottom: 6px; }
+    .dots { display: flex; gap: 3px; }
+    .d { width: 7px; height: 7px; border-radius: 50%; background: #1e293b; }
+    .d.on { background: #0ea5e9; }
+
+    /* MAIN */
+    .main { flex: 1; padding: 28px 24px; }
+
+    .ms { margin-bottom: 18px; }
+    .ms h2 {
+      font-size: 11px; font-weight: 700;
+      text-transform: uppercase; letter-spacing: 1.2px;
+      color: #0ea5e9;
+      border-bottom: 2px solid #e2e8f0;
+      padding-bottom: 4px; margin-bottom: 10px;
+    }
+
+    .entry { margin-bottom: 11px; }
+    .eh { display: flex; justify-content: space-between; align-items: flex-start; gap: 6px; }
+    .et { font-size: 12.5px; font-weight: 700; color: #1a202c; }
+    .es { font-size: 10.5px; color: #0ea5e9; font-weight: 600; margin-top: 1px; }
+    .ed {
+      font-size: 9.5px; color: #64748b; white-space: nowrap;
+      background: #f1f5f9; padding: 2px 7px; border-radius: 20px; flex-shrink: 0;
+    }
+    .edesc { font-size: 11px; color: #475569; margin-top: 4px; line-height: 1.6; }
+    .edesc ul { padding-left: 13px; }
+    .edesc ul li { margin-bottom: 2px; }
+
+    .tags { display: flex; flex-wrap: wrap; gap: 4px; margin-top: 5px; }
+    .tag { font-size: 9.5px; background: #e0f2fe; color: #0369a1; padding: 1px 7px; border-radius: 20px; font-weight: 500; }
+    .tag.org { background: #fef9c3; color: #854d0e; }
+
+    .summary-text { font-size: 11.5px; color: #475569; line-height: 1.7; }
+
+    @media print {
+      @page { margin: 0; size: A4; }
+      body { background: white; }
+      .print-bar { display: none !important; }
+      .page { width: 100%; margin: 0; box-shadow: none; min-height: 100vh; }
+    }
+
+    @media (max-width: 700px) {
+      .page { flex-direction: column; width: 100%; }
+      .sidebar { width: 100%; }
+      .print-bar { position: relative; }
+      body { background: white; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="print-bar">
+    <span>📄 Resume — Chris Jericho Sembiring</span>
+    <button onclick="window.print()"><i class="fas fa-print"></i> Print / Save PDF</button>
+  </div>
+
+  <div class="page">
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar">
+
+      <div class="photo-wrap">
+        <img src="assets/img/aku.JPG" alt="Chris Jericho" />
+        <h1>Chris Jericho Sembiring</h1>
+        <p class="role">Full Stack Developer & IoT Enthusiast</p>
+      </div>
+
+      <div class="sb">
+        <h3>Contact</h3>
+        <div class="ci"><i class="fas fa-envelope"></i><a href="mailto:meliala366m12@gmail.com">meliala366m12@gmail.com</a></div>
+        <div class="ci"><i class="fas fa-phone"></i><span>+62 896-2334-8644</span></div>
+        <div class="ci"><i class="fas fa-map-marker-alt"></i><span>Batam, Riau Islands, Indonesia</span></div>
+        <div class="ci"><i class="fab fa-github"></i><a href="https://github.com/ssnhrii" target="_blank">github.com/ssnhrii</a></div>
+        <div class="ci"><i class="fab fa-linkedin"></i><a href="https://linkedin.com/in/chris-jericho-sembiring" target="_blank">linkedin/chris-jericho-sembiring</a></div>
+      </div>
+
+      <div class="sb">
+        <h3>Technical Skills</h3>
+        <div class="sk"><div class="sk-name"><span>PHP / Laravel</span><span>75%</span></div><div class="sk-bar"><div class="sk-fill" style="width:75%"></div></div></div>
+        <div class="sk"><div class="sk-name"><span>HTML / CSS</span><span>90%</span></div><div class="sk-bar"><div class="sk-fill" style="width:90%"></div></div></div>
+        <div class="sk"><div class="sk-name"><span>JavaScript</span><span>75%</span></div><div class="sk-bar"><div class="sk-fill" style="width:75%"></div></div></div>
+        <div class="sk"><div class="sk-name"><span>MySQL</span><span>80%</span></div><div class="sk-bar"><div class="sk-fill" style="width:80%"></div></div></div>
+        <div class="sk"><div class="sk-name"><span>Python</span><span>60%</span></div><div class="sk-bar"><div class="sk-fill" style="width:60%"></div></div></div>
+        <div class="sk"><div class="sk-name"><span>Dart / Flutter</span><span>55%</span></div><div class="sk-bar"><div class="sk-fill" style="width:55%"></div></div></div>
+        <div class="sk"><div class="sk-name"><span>React.js</span><span>50%</span></div><div class="sk-bar"><div class="sk-fill" style="width:50%"></div></div></div>
+        <div class="sk"><div class="sk-name"><span>Git & GitHub</span><span>85%</span></div><div class="sk-bar"><div class="sk-fill" style="width:85%"></div></div></div>
+      </div>
+
+      <div class="sb">
+        <h3>Soft Skills</h3>
+        <div class="ci" style="margin-bottom:5px"><i class="fas fa-check"></i><span>Kepemimpinan</span></div>
+        <div class="ci" style="margin-bottom:5px"><i class="fas fa-check"></i><span>Kemampuan Berorganisasi</span></div>
+        <div class="ci" style="margin-bottom:5px"><i class="fas fa-check"></i><span>Full-Stack Development</span></div>
+        <div class="ci" style="margin-bottom:5px"><i class="fas fa-check"></i><span>Problem Solving</span></div>
+        <div class="ci" style="margin-bottom:5px"><i class="fas fa-check"></i><span>Team Collaboration</span></div>
+      </div>
+
+      <div class="sb">
+        <h3>Languages</h3>
+        <div class="lang"><span>Indonesian</span><div class="dots"><div class="d on"></div><div class="d on"></div><div class="d on"></div><div class="d on"></div><div class="d on"></div></div></div>
+        <div class="lang"><span>English</span><div class="dots"><div class="d on"></div><div class="d on"></div><div class="d on"></div><div class="d"></div><div class="d"></div></div></div>
+      </div>
+
+    </aside>
+
+    <!-- MAIN -->
+    <main class="main">
+
+      <!-- Profile -->
+      <div class="ms">
+        <h2>Profile</h2>
+        <p class="summary-text">
+          Mahasiswa Teknologi Rekayasa Perangkat Lunak yang berfokus pada pengembangan aplikasi Full Stack (React, PHP, Python) dan solusi IoT berbasis LoRa. Berpengalaman membangun sistem monitoring suhu ruang server dengan analisis anomali AI. Antusias dalam menciptakan perangkat lunak yang efisien dan terintegrasi.
+        </p>
+      </div>
+
+      <!-- Education -->
+      <div class="ms">
+        <h2>Education</h2>
+
+        <div class="entry">
+          <div class="eh">
+            <div>
+              <div class="et">Politeknik Negeri Batam (Polibatam)</div>
+              <div class="es">D4 Teknologi Rekayasa Perangkat Lunak</div>
+            </div>
+            <div class="ed">Aug 2024 — Aug 2027</div>
+          </div>
+          <div class="edesc">
+            Activities: KUAS (Kumpulan Anak Anak Seni) · Focus: Full-Stack Development & Internet of Things (IoT)
+          </div>
+        </div>
+
+        <div class="entry">
+          <div class="eh">
+            <div>
+              <div class="et">SMK Negeri 3 Batam</div>
+              <div class="es">Teknik Komputer & Jaringan</div>
+            </div>
+            <div class="ed">2021 — 2024</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Experience -->
+      <div class="ms">
+        <h2>Experience</h2>
+
+        <div class="entry">
+          <div class="eh">
+            <div>
+              <div class="et">Mobile Developer — Palm Oil Monitoring App</div>
+              <div class="es">Politeknik Negeri Batam · Part-time</div>
+            </div>
+            <div class="ed">Aug 2025 — Jan 2026</div>
+          </div>
+          <div class="edesc">
+            Developed a mobile-based application to support field data collection and monitoring in palm oil operations. Enables real-time recording of plantation activities, reducing reliance on manual processes.
+            <div class="tags"><span class="tag">Flutter</span><span class="tag">Dart</span><span class="tag">Mobile Dev</span><span class="tag">IoT</span></div>
+          </div>
+        </div>
+
+        <div class="entry">
+          <div class="eh">
+            <div>
+              <div class="et">Software Developer — Vehicle Loan Management System</div>
+              <div class="es">Politeknik Negeri Batam · Part-time</div>
+            </div>
+            <div class="ed">Feb 2025 — Jul 2025</div>
+          </div>
+          <div class="edesc">
+            Developed a web-based application to manage official vehicle lending processes within institutional environments. Replaced manual workflows with a structured digital platform.
+            <div class="tags"><span class="tag">PHP</span><span class="tag">Laravel</span><span class="tag">MySQL</span><span class="tag">JavaScript</span></div>
+          </div>
+        </div>
+
+        <div class="entry">
+          <div class="eh">
+            <div>
+              <div class="et">Software Developer — MBKM Proposal Submission App</div>
+              <div class="es">Politeknik Negeri Batam · Part-time</div>
+            </div>
+            <div class="ed">Aug 2024 — Jan 2025</div>
+          </div>
+          <div class="edesc">
+            Developed a web-based application to streamline submission and management of Merdeka Belajar Kampus Merdeka (MBKM) proposals. Digitizes manual processes into an integrated system.
+            <div class="tags"><span class="tag">PHP</span><span class="tag">HTML</span><span class="tag">CSS</span><span class="tag">JavaScript</span></div>
+          </div>
+        </div>
+
+        <div class="entry">
+          <div class="eh">
+            <div>
+              <div class="et">Office Helper (Internship)</div>
+              <div class="es">LPK GEWELD · Hybrid — Batam Center</div>
+            </div>
+            <div class="ed">Jan 2023 — May 2023</div>
+          </div>
+          <div class="edesc">Entri Data · 5 months internship handling data entry and office administration tasks.</div>
+        </div>
+      </div>
+
+      <!-- Organization -->
+      <div class="ms">
+        <h2>Organization</h2>
+        <div class="entry">
+          <div class="eh">
+            <div>
+              <div class="et">Staff of Eksternal Division (Kewirausahaan)</div>
+              <div class="es">KUAS — Kumpulan Anak Anak Seni · Polibatam</div>
+            </div>
+            <div class="ed">Feb 2025 — Dec 2025</div>
+          </div>
+          <div class="edesc">
+            Bertanggung jawab dalam pengelolaan hubungan eksternal organisasi seni kampus dan kegiatan kewirausahaan.
+            <div class="tags"><span class="tag org">Berorganisasi</span><span class="tag org">Kepemimpinan</span><span class="tag org">Kewirausahaan</span></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Key Projects -->
+      <div class="ms">
+        <h2>Key Projects</h2>
+        <div class="entry">
+          <div class="eh">
+            <div><div class="et">SUSEMON — IoT Server Monitoring (TA)</div></div>
+            <div class="ed">2026</div>
+          </div>
+          <div class="edesc">Node sensor nirkabel berbasis LoRa + analisis anomali suhu dengan AI. <span style="color:#0369a1">github.com/ssnhrii/susemon</span>
+            <div class="tags"><span class="tag">Dart</span><span class="tag">Flutter</span><span class="tag">LoRa</span><span class="tag">AI/ML</span></div>
+          </div>
+        </div>
+        <div class="entry">
+          <div class="eh">
+            <div><div class="et">Math-room — Interactive Flashcard App</div></div>
+            <div class="ed">2025</div>
+          </div>
+          <div class="edesc">Live di GitHub Pages · ⭐ 1 star. <span style="color:#0369a1">ssnhrii.github.io/Maths-room</span>
+            <div class="tags"><span class="tag">HTML</span><span class="tag">Tailwind</span><span class="tag">JavaScript</span></div>
+          </div>
+        </div>
+      </div>
+
+    </main>
+  </div>
+
+</body>
+</html>
