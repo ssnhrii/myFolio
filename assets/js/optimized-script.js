@@ -241,49 +241,83 @@ document.addEventListener('DOMContentLoaded', () => {
   // --- VIEW ALL PROJECTS ---
   const viewAllBtn = document.getElementById('view-all-projects-btn');
   if (viewAllBtn) {
-    let showing = false;
     viewAllBtn.addEventListener('click', () => {
       const container = document.querySelector('.projects-container');
-      if (!container || !window.portfolioData) return;
+      if (!container) return;
 
-      showing = !showing;
-      const projects = window.portfolioData.projects;
-      const toShow = showing ? projects : projects.filter(p => p.featured);
-
-      // Update grid cols when showing all
-      container.className = `projects-container grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8`;
-
-      container.innerHTML = toShow.map((p, i) => `
-        <div class="project-card group" data-aos="fade-up" data-aos-delay="${i * 80}">
-          <div class="relative overflow-hidden">
-            <img src="${p.image}" alt="${p.title}"
-              class="w-full h-48 sm:h-56 object-cover group-hover:scale-110 transition-transform duration-500" loading="lazy"/>
-            <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-          </div>
-          <div class="p-4 sm:p-6">
-            <h3 class="text-lg sm:text-xl font-bold mb-2">${p.title}</h3>
-            <p class="text-sm sm:text-base text-gray-600 dark:text-gray-300 mb-4 line-clamp-3">${p.description}</p>
-            <div class="flex flex-wrap gap-2 mb-4">
-              ${p.technologies.map(t => `<span class="tech-tag text-xs sm:text-sm">${t}</span>`).join('')}
-            </div>
-            <div class="flex flex-wrap gap-3 sm:gap-4">
-              <a href="${p.githubUrl}" target="_blank" rel="noopener noreferrer"
-                class="text-sm text-primary-600 dark:text-primary-400 hover:underline inline-flex items-center">
-                <i class="fab fa-github mr-1"></i> Code
-              </a>
-              ${p.liveUrl !== '#' ? `<a href="${p.liveUrl}" target="_blank" rel="noopener noreferrer"
-                class="text-sm text-primary-600 dark:text-primary-400 hover:underline inline-flex items-center">
-                <i class="fas fa-external-link-alt mr-1"></i> Live Demo
-              </a>` : ''}
-            </div>
-          </div>
-        </div>
-      `).join('');
-
+      window._showingAll = !window._showingAll;
       const span = viewAllBtn.querySelector('span');
       const icon = viewAllBtn.querySelector('i');
-      span.textContent = showing ? 'Show Less' : 'View All Projects';
-      icon.style.transform = showing ? 'rotate(90deg)' : '';
+
+      if (window._allRepos) {
+        // Use live GitHub data
+        const toShow = window._showingAll ? window._allRepos : window._allRepos.slice(0, 3);
+
+        const imgMap = {
+          'susemon':'https://images.unsplash.com/photo-1518432031352-d6fc5c10da5a?auto=format&fit=crop&w=800&q=80',
+          'mbkm-vers2':'https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=800&q=80',
+          'PBL117-PengajuanUsulanMBKM':'https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=800&q=80',
+          'GBIS-Anugerah':'https://images.unsplash.com/photo-1501854140801-50d01698950b?auto=format&fit=crop&w=800&q=80',
+          'Maths-room':'https://images.unsplash.com/photo-1509228468518-180dd4864904?auto=format&fit=crop&w=800&q=80',
+          'KuasPay':'https://images.unsplash.com/photo-1563013544-824ae1b704d3?auto=format&fit=crop&w=800&q=80',
+          'forum-app':'https://images.unsplash.com/photo-1531482615713-2afd69097998?auto=format&fit=crop&w=800&q=80',
+          'reservasi-hotel':'https://images.unsplash.com/photo-1566073771259-6a8506099945?auto=format&fit=crop&w=800&q=80',
+          'gereja':'https://images.unsplash.com/photo-1438032005730-c779502df39b?auto=format&fit=crop&w=800&q=80',
+          'tugasku':'https://images.unsplash.com/photo-1484480974693-6ca0a78fb36b?auto=format&fit=crop&w=800&q=80',
+          'velentine':'https://images.unsplash.com/photo-1518199266791-5375a83190b7?auto=format&fit=crop&w=800&q=80',
+        };
+        const langMap = { 'PHP':['PHP','MySQL'], 'JavaScript':['JavaScript','HTML','CSS'], 'Dart':['Dart','Flutter'], 'CSS':['HTML','CSS'], 'HTML':['HTML','CSS','JavaScript'], null:['Web'] };
+        const defaultImg = 'https://images.unsplash.com/photo-1555066931-4365d14bab8c?auto=format&fit=crop&w=800&q=80';
+
+        container.innerHTML = toShow.map((repo, i) => {
+          const tags = langMap[repo.language] || langMap[null];
+          const img = imgMap[repo.name] || defaultImg;
+          const liveUrl = repo.homepage && repo.homepage.startsWith('http') ? repo.homepage : null;
+          return `
+            <div class="project-card group" data-aos="fade-up" data-aos-delay="${i * 60}">
+              <div class="relative overflow-hidden">
+                <img src="${img}" alt="${repo.name}" class="w-full h-48 object-cover group-hover:scale-110 transition-transform duration-500" loading="lazy"/>
+                <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                ${repo.stargazers_count > 0 ? `<div class="absolute top-3 right-3 bg-yellow-400 text-black text-xs font-bold px-2 py-1 rounded-full flex items-center gap-1"><i class="fas fa-star text-xs"></i>${repo.stargazers_count}</div>` : ''}
+              </div>
+              <div class="p-4 sm:p-6">
+                <h3 class="text-lg font-bold mb-2">${repo.name.replace(/-/g,' ').replace(/\b\w/g,c=>c.toUpperCase())}</h3>
+                <p class="text-sm text-gray-600 dark:text-gray-300 mb-4 line-clamp-3">${repo.description || 'Project dari GitHub @ssnhrii'}</p>
+                <div class="flex flex-wrap gap-2 mb-4">
+                  ${tags.map(t=>`<span class="tech-tag text-xs">${t}</span>`).join('')}
+                  ${repo.language ? `<span class="tech-tag text-xs">${repo.language}</span>` : ''}
+                </div>
+                <div class="flex flex-wrap gap-3">
+                  <a href="${repo.html_url}" target="_blank" rel="noopener noreferrer" class="text-sm text-primary-600 dark:text-primary-400 hover:underline inline-flex items-center">
+                    <i class="fab fa-github mr-1"></i> Code
+                  </a>
+                  ${liveUrl ? `<a href="${liveUrl}" target="_blank" rel="noopener noreferrer" class="text-sm text-primary-600 dark:text-primary-400 hover:underline inline-flex items-center"><i class="fas fa-external-link-alt mr-1"></i> Live Demo</a>` : ''}
+                </div>
+              </div>
+            </div>`;
+        }).join('');
+      } else if (window.portfolioData) {
+        // Fallback to static data
+        const projects = window.portfolioData.projects;
+        const toShow = window._showingAll ? projects : projects.filter(p => p.featured).slice(0, 3);
+        container.innerHTML = toShow.map((p, i) => `
+          <div class="project-card group" data-aos="fade-up" data-aos-delay="${i * 80}">
+            <div class="relative overflow-hidden">
+              <img src="${p.image}" alt="${p.title}" class="w-full h-48 object-cover group-hover:scale-110 transition-transform duration-500" loading="lazy"/>
+            </div>
+            <div class="p-4 sm:p-6">
+              <h3 class="text-lg font-bold mb-2">${p.title}</h3>
+              <p class="text-sm text-gray-600 dark:text-gray-300 mb-4 line-clamp-3">${p.description}</p>
+              <div class="flex flex-wrap gap-2 mb-4">${p.technologies.map(t=>`<span class="tech-tag text-xs">${t}</span>`).join('')}</div>
+              <a href="${p.githubUrl}" target="_blank" rel="noopener noreferrer" class="text-sm text-primary-600 dark:text-primary-400 hover:underline inline-flex items-center">
+                <i class="fab fa-github mr-1"></i> Code
+              </a>
+            </div>
+          </div>`).join('');
+      }
+
+      span.textContent = window._showingAll ? 'Show Less' : 'View All Projects';
+      icon.style.transform = window._showingAll ? 'rotate(90deg)' : '';
       if (typeof AOS !== 'undefined') AOS.refresh();
     });
   }
