@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="icon" href="assets/img/icon.png" type="image/x-icon" />
+  <title>CV — Chris Jericho Sembiring</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'Georgia', 'Times New Roman', serif;
+      font-size: 12px;
+      color: #1a1a1a;
+      background: #f0f0f0;
+    }
+
+    .print-bar {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      background: #1a1a1a;
+      color: white;
+      padding: 10px 24px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      z-index: 100;
+    }
+    .print-bar span { font-size: 13px; font-weight: 600; font-family: sans-serif; }
+    .print-bar button {
+      background: white;
+      color: #1a1a1a;
+      border: none;
+      padding: 7px 18px;
+      border-radius: 4px;
+      font-weight: 700;
+      font-size: 12px;
+      cursor: pointer;
+      font-family: sans-serif;
+      display: flex;
+      align-items: center;
+      gap: 7px;
+    }
+    .print-bar button:hover { background: #e5e5e5; }
+
+    .page {
+      width: 210mm;
+      min-height: 297mm;
+      margin: 52px auto 40px;
+      background: white;
+      box-shadow: 0 4px 24px rgba(0,0,0,0.15);
+      padding: 16mm 18mm 16mm 18mm;
+    }
+
+    /* HEADER */
+    .cv-header {
+      text-align: center;
+      border-bottom: 2px solid #1a1a1a;
+      padding-bottom: 12px;
+      margin-bottom: 14px;
+    }
+    .cv-header h1 {
+      font-size: 24px;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: #1a1a1a;
+    }
+    .cv-header .role {
+      font-size: 12px;
+      color: #555;
+      margin-top: 3px;
+      font-style: italic;
+    }
+    .cv-header .contacts {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 16px;
+      margin-top: 8px;
+      font-size: 11px;
+      color: #333;
+      font-family: 'Segoe UI', sans-serif;
+    }
+    .cv-header .contacts a { color: #333; text-decoration: none; }
+    .cv-header .contacts a:hover { text-decoration: underline; }
+    .cv-header .contacts span { display: flex; align-items: center; gap: 5px; }
+    .cv-header .contacts i { color: #555; font-size: 10px; }
+
+    /* SECTION */
+    .section { margin-bottom: 14px; }
+    .section h2 {
+      font-size: 12px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      color: #1a1a1a;
+      border-bottom: 1px solid #1a1a1a;
+      padding-bottom: 3px;
+      margin-bottom: 10px;
+      font-family: 'Segoe UI', sans-serif;
+    }
+
+    /* ENTRY */
+    .entry { margin-bottom: 10px; }
+    .entry-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 8px;
+    }
+    .entry-title {
+      font-size: 12.5px;
+      font-weight: 700;
+      color: #1a1a1a;
+      font-family: 'Segoe UI', sans-serif;
+    }
+    .entry-sub {
+      font-size: 11.5px;
+      color: #444;
+      font-style: italic;
+      margin-top: 1px;
+      font-family: 'Segoe UI', sans-serif;
+    }
+    .entry-date {
+      font-size: 11px;
+      color: #555;
+      white-space: nowrap;
+      font-family: 'Segoe UI', sans-serif;
+      flex-shrink: 0;
+    }
+    .entry-desc {
+      font-size: 11.5px;
+      color: #333;
+      margin-top: 4px;
+      line-height: 1.65;
+    }
+    .entry-desc ul {
+      padding-left: 16px;
+      list-style: disc;
+    }
+    .entry-desc ul li { margin-bottom: 2px; }
+
+    /* SKILLS GRID */
+    .skills-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4px 24px;
+    }
+    .skill-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 11.5px;
+      color: #333;
+      font-family: 'Segoe UI', sans-serif;
+      padding: 2px 0;
+    }
+    .skill-dots { display: flex; gap: 3px; }
+    .dot { width: 8px; height: 8px; border-radius: 50%; background: #ddd; }
+    .dot.on { background: #1a1a1a; }
+
+    /* PROFILE */
+    .profile-text {
+      font-size: 11.5px;
+      color: #333;
+      line-height: 1.7;
+      text-align: justify;
+    }
+
+    /* TWO COL */
+    .two-col {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0 28px;
+    }
+
+    /* INLINE TAGS */
+    .stack {
+      font-size: 10.5px;
+      color: #555;
+      font-style: italic;
+      margin-top: 2px;
+      font-family: 'Segoe UI', sans-serif;
+    }
+
+    /* DIVIDER */
+    .divider { border: none; border-top: 1px solid #ddd; margin: 6px 0; }
+
+    @media print {
+      @page { margin: 0; size: A4; }
+      body { background: white; }
+      .print-bar { display: none !important; }
+      .page { width: 100%; margin: 0; box-shadow: none; min-height: 100vh; padding: 14mm 16mm; }
+    }
+
+    @media (max-width: 700px) {
+      .page { width: 100%; margin: 52px 0 0; padding: 20px; }
+      .skills-grid, .two-col { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="print-bar">
+    <span>📋 Curriculum Vitae — Chris Jericho Sembiring</span>
+    <button onclick="window.print()"><i class="fas fa-print"></i> Print / Save PDF</button>
+  </div>
+
+  <div class="page">
+
+    <!-- HEADER -->
+    <div class="cv-header">
+      <h1>Chris Jericho Sembiring</h1>
+      <p class="role">Full Stack Developer &amp; IoT Enthusiast</p>
+      <div class="contacts">
+        <span><i class="fas fa-map-marker-alt"></i> Batam, Riau Islands, Indonesia</span>
+        <span><i class="fas fa-envelope"></i> <a href="mailto:meliala366m12@gmail.com">meliala366m12@gmail.com</a></span>
+        <span><i class="fas fa-phone"></i> +62 896-2334-8644</span>
+        <span><i class="fab fa-linkedin"></i> <a href="https://linkedin.com/in/chris-jericho-sembiring-380654206" target="_blank">linkedin.com/in/chris-jericho-sembiring</a></span>
+        <span><i class="fab fa-github"></i> <a href="https://github.com/ssnhrii" target="_blank">github.com/ssnhrii</a></span>
+        <span><i class="fas fa-globe"></i> <a href="https://chrisaja.web.id" target="_blank">chrisaja.web.id</a></span>
+      </div>
+    </div>
+
+    <!-- PROFIL DIRI -->
+    <div class="section">
+      <h2>Profil Diri</h2>
+      <p class="profile-text">
+        Mahasiswa D4 Teknologi Rekayasa Perangkat Lunak di Politeknik Negeri Batam dengan keahlian dalam pengembangan aplikasi Full Stack menggunakan PHP/Laravel, JavaScript, dan Python. Berpengalaman dalam membangun sistem berbasis web dan mobile, serta tertarik pada solusi IoT dan kecerdasan buatan. Memiliki kemampuan kolaborasi tim yang baik dan terbiasa bekerja pada proyek nyata di lingkungan akademik.
+      </p>
+    </div>
+
+    <!-- PENDIDIKAN -->
+    <div class="section">
+      <h2>Pendidikan</h2>
+
+      <div class="entry">
+        <div class="entry-header">
+          <div>
+            <div class="entry-title">Politeknik Negeri Batam</div>
+            <div class="entry-sub">D4 Teknologi Rekayasa Perangkat Lunak — IPK: (ongoing)</div>
+          </div>
+          <div class="entry-date">Agustus 2024 — Agustus 2027</div>
+        </div>
+        <div class="entry-desc">
+          Batam, Kepulauan Riau · Fokus bidang Full-Stack Web Development dan Internet of Things (IoT). Aktif sebagai anggota organisasi KUAS (Kumpulan Anak Anak Seni).
+        </div>
+      </div>
+
+      <div class="entry">
+        <div class="entry-header">
+          <div>
+            <div class="entry-title">SMK Negeri 3 Batam</div>
+            <div class="entry-sub">Kompetensi Keahlian: Teknik Komputer &amp; Jaringan</div>
+          </div>
+          <div class="entry-date">2021 — 2024</div>
+        </div>
+        <div class="entry-desc">Batam, Kepulauan Riau</div>
+      </div>
+    </div>
+
+    <!-- PENGALAMAN -->
+    <div class="section">
+      <h2>Pengalaman</h2>
+
+      <div class="entry">
+        <div class="entry-header">
+          <div>
+            <div class="entry-title">Mobile Developer — Palm Oil Monitoring Application</div>
+            <div class="entry-sub">Politeknik Negeri Batam · Part-time</div>
+          </div>
+          <div class="entry-date">Agustus 2025 — Januari 2026</div>
+        </div>
+        <div class="entry-desc">
+          <ul>
+            <li>Mengembangkan aplikasi mobile untuk pencatatan dan monitoring data lapangan perkebunan kelapa sawit secara real-time.</li>
+            <li>Mengurangi ketergantungan proses manual melalui digitalisasi alur kerja lapangan.</li>
+          </ul>
+          <div class="stack">Stack: Flutter · Dart · Mobile Development · IoT</div>
+        </div>
+      </div>
+
+      <div class="entry">
+        <div class="entry-header">
+          <div>
+            <div class="entry-title">Software Developer — Sistem Peminjaman Kendaraan Dinas</div>
+            <div class="entry-sub">Politeknik Negeri Batam · Part-time</div>
+          </div>
+          <div class="entry-date">Februari 2025 — Juli 2025</div>
+        </div>
+        <div class="entry-desc">
+          <ul>
+            <li>Membangun aplikasi web untuk manajemen peminjaman kendaraan dinas institusi secara terstruktur.</li>
+            <li>Menggantikan alur kerja manual dengan platform digital terintegrasi berbasis Laravel.</li>
+          </ul>
+          <div class="stack">Stack: PHP · Laravel · MySQL · JavaScript · Tailwind CSS</div>
+        </div>
+      </div>
+
+      <div class="entry">
+        <div class="entry-header">
+          <div>
+            <div class="entry-title">Software Developer — Aplikasi Pengajuan Proposal MBKM</div>
+            <div class="entry-sub">Politeknik Negeri Batam · Part-time</div>
+          </div>
+          <div class="entry-date">Agustus 2024 — Januari 2025</div>
+        </div>
+        <div class="entry-desc">
+          <ul>
+            <li>Mengembangkan sistem web untuk pengajuan dan pengelolaan proposal program Merdeka Belajar Kampus Merdeka (MBKM).</li>
+            <li>Digitalisasi proses pengajuan manual menjadi sistem terintegrasi dan terkelola.</li>
+          </ul>
+          <div class="stack">Stack: PHP · HTML · CSS · JavaScript</div>
+        </div>
+      </div>
+
+      <div class="entry">
+        <div class="entry-header">
+          <div>
+            <div class="entry-title">Magang — Office Helper</div>
+            <div class="entry-sub">LPK GEWELD · Batam Center, Hybrid</div>
+          </div>
+          <div class="entry-date">Januari 2023 — Mei 2023</div>
+        </div>
+        <div class="entry-desc">Entri data dan administrasi perkantoran selama 5 bulan masa magang.</div>
+      </div>
+    </div>
+
+    <!-- PROYEK -->
+    <div class="section">
+      <h2>Proyek Unggulan</h2>
+
+      <div class="entry">
+        <div class="entry-header">
+          <div>
+            <div class="entry-title">SUSEMON — IoT Server Room Monitoring System (Tugas Akhir)</div>
+          </div>
+          <div class="entry-date">2026</div>
+        </div>
+        <div class="entry-desc">
+          Sistem monitoring suhu ruang server nirkabel berbasis LoRa dengan analisis anomali menggunakan AI/ML. Node sensor terdistribusi dengan dashboard real-time.
+          <div class="stack">Stack: Flutter · Dart · LoRa · AI/ML · IoT · github.com/ssnhrii/susemon</div>
+        </div>
+      </div>
+
+      <div class="entry">
+        <div class="entry-header">
+          <div>
+            <div class="entry-title">myFolio — Personal Portfolio Website</div>
+          </div>
+          <div class="entry-date">2025</div>
+        </div>
+        <div class="entry-desc">
+          Portfolio website pribadi dengan dark mode, animasi, dan desain responsif. Deployed di domain custom chrisaja.web.id.
+          <div class="stack">Stack: HTML · Tailwind CSS · JavaScript · chrisaja.web.id</div>
+        </div>
+      </div>
+
+      <div class="entry">
+        <div class="entry-header">
+          <div>
+            <div class="entry-title">Math-room — Interactive Flashcard App</div>
+          </div>
+          <div class="entry-date">2025</div>
+        </div>
+        <div class="entry-desc">
+          Aplikasi flashcard matematika interaktif, live di GitHub Pages.
+          <div class="stack">Stack: HTML · Tailwind · JavaScript · ssnhrii.github.io/Maths-room</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- KEAHLIAN & ORGANISASI -->
+    <div class="two-col">
+      <div class="section">
+        <h2>Keahlian Teknis</h2>
+        <div class="skills-grid">
+          <div class="skill-row"><span>PHP / Laravel</span><div class="skill-dots"><div class="dot on"></div><div class="dot on"></div><div class="dot on"></div><div class="dot on"></div><div class="dot"></div></div></div>
+          <div class="skill-row"><span>HTML / CSS</span><div class="skill-dots"><div class="dot on"></div><div class="dot on"></div><div class="dot on"></div><div class="dot on"></div><div class="dot on"></div></div></div>
+          <div class="skill-row"><span>JavaScript</span><div class="skill-dots"><div class="dot on"></div><div class="dot on"></div><div class="dot on"></div><div class="dot on"></div><div class="dot"></div></div></div>
+          <div class="skill-row"><span>MySQL</span><div class="skill-dots"><div class="dot on"></div><div class="dot on"></div><div class="dot on"></div><div class="dot on"></div><div class="dot"></div></div></div>
+          <div class="skill-row"><span>Python</span><div class="skill-dots"><div class="dot on"></div><div class="dot on"></div><div class="dot on"></div><div class="dot"></div><div class="dot"></div></div></div>
+          <div class="skill-row"><span>Flutter / Dart</span><div class="skill-dots"><div class="dot on"></div><div class="dot on"></div><div class="dot on"></div><div class="dot"></div><div class="dot"></div></div></div>
+          <div class="skill-row"><span>Tailwind CSS</span><div class="skill-dots"><div class="dot on"></div><div class="dot on"></div><div class="dot on"></div><div class="dot on"></div><div class="dot"></div></div></div>
+          <div class="skill-row"><span>Git &amp; GitHub</span><div class="skill-dots"><div class="dot on"></div><div class="dot on"></div><div class="dot on"></div><div class="dot on"></div><div class="dot on"></div></div></div>
+          <div class="skill-row"><span>Docker</span><div class="skill-dots"><div class="dot on"></div><div class="dot on"></div><div class="dot on"></div><div class="dot"></div><div class="dot"></div></div></div>
+          <div class="skill-row"><span>React.js</span><div class="skill-dots"><div class="dot on"></div><div class="dot on"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div></div></div>
+        </div>
+      </div>
+
+      <div>
+        <div class="section">
+          <h2>Organisasi</h2>
+          <div class="entry">
+            <div class="entry-header">
+              <div>
+                <div class="entry-title">Staff Divisi Eksternal (Kewirausahaan)</div>
+                <div class="entry-sub">KUAS — Politeknik Negeri Batam</div>
+              </div>
+              <div class="entry-date">Feb — Des 2025</div>
+            </div>
+            <div class="entry-desc">Pengelolaan hubungan eksternal organisasi seni kampus dan kegiatan kewirausahaan.</div>
+          </div>
+        </div>
+
+        <div class="section">
+          <h2>Soft Skills</h2>
+          <div class="entry-desc" style="font-family:'Segoe UI',sans-serif;">
+            <ul style="padding-left:16px; color:#333;">
+              <li>Kepemimpinan &amp; Kerja Tim</li>
+              <li>Problem Solving</li>
+              <li>Kemampuan Berorganisasi</li>
+              <li>Komunikasi &amp; Presentasi</li>
+              <li>Adaptasi &amp; Fast Learner</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="section">
+          <h2>Bahasa</h2>
+          <div class="skill-row" style="font-family:'Segoe UI',sans-serif; margin-bottom:5px;">
+            <span>Bahasa Indonesia</span>
+            <div class="skill-dots"><div class="dot on"></div><div class="dot on"></div><div class="dot on"></div><div class="dot on"></div><div class="dot on"></div></div>
+          </div>
+          <div class="skill-row" style="font-family:'Segoe UI',sans-serif;">
+            <span>English</span>
+            <div class="skill-dots"><div class="dot on"></div><div class="dot on"></div><div class="dot on"></div><div class="dot"></div><div class="dot"></div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+</body>
+</html>
